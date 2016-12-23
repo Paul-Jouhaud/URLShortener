@@ -24,10 +24,12 @@ class UrlShortener(APIView):
 
     def post(self, request, format=None):
         if 'real_url' in request.data:
+            # More than 56 billion possibility for 6 numbers in base 62
             short_url = UrlShortener.generate(nb_char=6)
             new_url = Urls()
             new_url.short_url = short_url
             new_url.real_url = request.data['real_url']
+            # Not used right now, will be in the future
             if 'username' in request.data:
                 new_url.username = request.data['username']
             new_url.save()
