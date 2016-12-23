@@ -1,14 +1,21 @@
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render_to_response
+from django.template.context_processors import csrf
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from shortener.serializers import UrlSerializer
 from shortener.models import Urls
+from shortener.forms import URLShortenerForm
 import string
 import random
 import json
 
+
+def index(request):
+    c = {}
+    c.update(csrf(request))
+    return render_to_response('index.html', c)
 
 # Create your views here.
 class UrlShortener(APIView):

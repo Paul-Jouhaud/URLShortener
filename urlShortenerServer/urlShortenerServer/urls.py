@@ -16,7 +16,9 @@ Including another URLconf
 from django.conf.urls import url, include
 from shortener import views
 
+
 urlpatterns = [
     url(r'api/', views.UrlShortener.as_view()),
     url(r'^(\w{6})/$', views.ExistingUrl.as_view()),
+    url(r'^$', views.index, name='home'),
 ]
