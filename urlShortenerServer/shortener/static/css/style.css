@@ -7,14 +7,13 @@
 a:hover{
     text-decoration: none;
 }
- 
+
 header {
     border-bottom: 1px solid #eeeeee;
-    margin-bottom: 30px;
-    padding-bottom: 10px;
+    margin-bottom: 40px;
+    padding-bottom: 5px;
     clear: both;
 }
- 
 #wrap {
     max-width: 700px;
     margin: 5px 10px 10px 10px;
@@ -22,6 +21,6 @@ header {
     text-align: left;
 }
 #url-result {
-    color: #00e000;
+    color: dimgray;
     display: hidden;
 }

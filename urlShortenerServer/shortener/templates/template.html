@@ -35,16 +35,21 @@
         }
     </script>
     <body>
-        <div id="wrap">
-            <header>
-                <h1><a href="{% url 'home' %}">URL Shortener</a></h1>
-            </header>
-            
-            <div id="content">
-                {% block content %}
-                
-                {% endblock %}
-            </div>
+        <div class="container-fluid text-center">    
+            <div class="row content">
+                <div class="col-sm-2 sidenav"></div>
+                    <div id="wrap" class="col-sm-8 text-left">
+                        <header>
+                            <h1><a class="linkGray" href="{% url 'home' %}">URL Shortener</a></h1>
+                        </header>
+                        <div id="content">
+                            {% block content %}
+                            
+                            {% endblock %}
+                        </div>
+                    </div>
+                    <div class="col-sm-2 sidenav"></div>
+                </div>
         </div>
     </body>
 </html>
