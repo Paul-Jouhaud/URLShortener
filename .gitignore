@@ -1,3 +1,5 @@
 *.pyc
 urlShortenerServer/shortener/migrations/*
 urlShortenerServer/db.sqlite3
+urlShortenerApp/urlShortener.xcodeproj/xcuserdata/*
+urlShortenerApp/urlShortener.xcodeproj/project.xcworkspace
