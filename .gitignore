@@ -1,0 +1,3 @@
+*.pyc
+urlShortenerServer/shortener/migrations/*
+urlShortenerServer/db.sqlite3
