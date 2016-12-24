@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from shortener import views
-
+from django.contrib import admin
 
 urlpatterns = [
     url(r'api/', views.UrlShortener.as_view()),

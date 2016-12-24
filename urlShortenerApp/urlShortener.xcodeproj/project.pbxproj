@@ -8,22 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		DA3B4DC11E0D5D4B00593E90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B4DC01E0D5D4B00593E90 /* AppDelegate.swift */; };
-		DA3B4DC31E0D5D4B00593E90 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B4DC21E0D5D4B00593E90 /* FirstViewController.swift */; };
-		DA3B4DC51E0D5D4B00593E90 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B4DC41E0D5D4B00593E90 /* SecondViewController.swift */; };
+		DA3B4DC31E0D5D4B00593E90 /* ShortenerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B4DC21E0D5D4B00593E90 /* ShortenerViewController.swift */; };
 		DA3B4DC81E0D5D4B00593E90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA3B4DC61E0D5D4B00593E90 /* Main.storyboard */; };
 		DA3B4DCA1E0D5D4B00593E90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA3B4DC91E0D5D4B00593E90 /* Assets.xcassets */; };
 		DA3B4DCD1E0D5D4B00593E90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA3B4DCB1E0D5D4B00593E90 /* LaunchScreen.storyboard */; };
+		DA3B4DD71E0DB4BF00593E90 /* UrlListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B4DD61E0DB4BF00593E90 /* UrlListViewController.swift */; };
+		DAB05DFA1E0E855D003186F6 /* UrlItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB05DF91E0E855D003186F6 /* UrlItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DA3B4DBD1E0D5D4B00593E90 /* urlShortener.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = urlShortener.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA3B4DC01E0D5D4B00593E90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DA3B4DC21E0D5D4B00593E90 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		DA3B4DC41E0D5D4B00593E90 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		DA3B4DC21E0D5D4B00593E90 /* ShortenerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortenerViewController.swift; sourceTree = "<group>"; };
 		DA3B4DC71E0D5D4B00593E90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DA3B4DC91E0D5D4B00593E90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA3B4DCC1E0D5D4B00593E90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA3B4DCE1E0D5D4B00593E90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA3B4DD61E0DB4BF00593E90 /* UrlListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlListViewController.swift; sourceTree = "<group>"; };
+		DAB05DF91E0E855D003186F6 /* UrlItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,12 +59,13 @@
 			isa = PBXGroup;
 			children = (
 				DA3B4DC01E0D5D4B00593E90 /* AppDelegate.swift */,
-				DA3B4DC21E0D5D4B00593E90 /* FirstViewController.swift */,
-				DA3B4DC41E0D5D4B00593E90 /* SecondViewController.swift */,
+				DA3B4DC21E0D5D4B00593E90 /* ShortenerViewController.swift */,
+				DA3B4DD61E0DB4BF00593E90 /* UrlListViewController.swift */,
 				DA3B4DC61E0D5D4B00593E90 /* Main.storyboard */,
 				DA3B4DC91E0D5D4B00593E90 /* Assets.xcassets */,
 				DA3B4DCB1E0D5D4B00593E90 /* LaunchScreen.storyboard */,
 				DA3B4DCE1E0D5D4B00593E90 /* Info.plist */,
+				DAB05DF91E0E855D003186F6 /* UrlItem.swift */,
 			);
 			path = urlShortener;
 			sourceTree = "<group>";
@@ -140,9 +143,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA3B4DC51E0D5D4B00593E90 /* SecondViewController.swift in Sources */,
 				DA3B4DC11E0D5D4B00593E90 /* AppDelegate.swift in Sources */,
-				DA3B4DC31E0D5D4B00593E90 /* FirstViewController.swift in Sources */,
+				DA3B4DD71E0DB4BF00593E90 /* UrlListViewController.swift in Sources */,
+				DAB05DFA1E0E855D003186F6 /* UrlItem.swift in Sources */,
+				DA3B4DC31E0D5D4B00593E90 /* ShortenerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,10 +267,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = N533J6CNR8;
 				INFOPLIST_FILE = urlShortener/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.PJ.urlShortener;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PJ.urlShortenerApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -276,10 +281,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = N533J6CNR8;
 				INFOPLIST_FILE = urlShortener/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.PJ.urlShortener;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PJ.urlShortenerApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -304,6 +310,7 @@
 				DA3B4DD31E0D5D4B00593E90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

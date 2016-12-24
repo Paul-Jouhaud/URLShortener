@@ -8,21 +8,22 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
-
+class ShortenerViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
     @IBOutlet weak var shortURL: UILabel!
     @IBOutlet weak var realURL: UITextField!
     @IBAction func generateShortenedURL() {
+        let realUrlText = realURL.text!
         let requestData = ["real_url": realURL.text!]
         let url = URL(string: "http://localhost:8000/api/")!
         let jsonData = try! JSONSerialization.data(withJSONObject: requestData, options: [])
@@ -41,7 +42,12 @@ class FirstViewController: UIViewController {
             do {
                 guard let data = data else { return }
                 guard let response = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] else { return }
-                self.shortURL.text = response["url"]! as! String
+                let shortUrlText = response["url"]! as! String
+                self.shortURL.text = shortUrlText
+                let newShortUrl = UrlItem()
+                newShortUrl.real_url = realUrlText
+                newShortUrl.short_url = shortUrlText
+                print(newShortUrl)
             } catch {
                 print("error:", error)
             }
