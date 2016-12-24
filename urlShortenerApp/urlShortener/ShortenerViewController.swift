@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ShortenerViewControllerDelegate: class {
+    func shortenerViewController(_ controller: ShortenerViewController, didFinishAdding item: UrlItem)
+}
+
 class ShortenerViewController: UIViewController {
     
     override func viewDidLoad() {
@@ -20,6 +24,7 @@ class ShortenerViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    weak var delegate: ShortenerViewControllerDelegate?
     @IBOutlet weak var shortURL: UILabel!
     @IBOutlet weak var realURL: UITextField!
     @IBAction func generateShortenedURL() {
@@ -48,6 +53,7 @@ class ShortenerViewController: UIViewController {
                 newShortUrl.real_url = realUrlText
                 newShortUrl.short_url = shortUrlText
                 print(newShortUrl)
+                self.delegate?.shortenerViewController(self, didFinishAdding: newShortUrl)
             } catch {
                 print("error:", error)
             }

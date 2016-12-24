@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class UrlListViewController: UITableViewController {
+class UrlListViewController: UITableViewController, ShortenerViewControllerDelegate {
     
     var items: [UrlItem]
     
@@ -96,7 +96,8 @@ class UrlListViewController: UITableViewController {
         data.write(to: dataFilePath(), atomically: true)
     }
     
-    func add(item: UrlItem) {
+    func shortenerViewController(_ controller: ShortenerViewController,
+                                 didFinishAdding item: UrlItem) {
         print("In da delegate !")
         let newRowIndex = items.count
         items.append(item)

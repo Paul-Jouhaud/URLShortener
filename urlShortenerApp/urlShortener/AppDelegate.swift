@@ -16,6 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let tabBarController = window!.rootViewController as! UITabBarController
+        
+        if let tabBarViewControllers = tabBarController.viewControllers {
+            let shortenerViewControllerNavigationController = tabBarViewControllers[0] as! UINavigationController
+            let urlListViewControllerNavigationController = tabBarViewControllers[1] as! UINavigationController
+            let shortenerViewController = shortenerViewControllerNavigationController.viewControllers[0] as! ShortenerViewController
+            let urlListViewController = urlListViewControllerNavigationController.viewControllers[0] as! UrlListViewController
+            shortenerViewController.delegate = urlListViewController
+        }
         return true
     }
 

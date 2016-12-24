@@ -7,6 +7,7 @@ from rest_framework import status
 from shortener.serializers import UrlSerializer
 from shortener.models import Urls
 from shortener.forms import URLShortenerForm
+from urlShortenerServer.settings import SITE_URL
 import string
 import random
 import json
@@ -41,7 +42,7 @@ class UrlShortener(APIView):
                 new_url.username = request.data['username']
             new_url.save()
             response_data = {}
-            response_data['url'] = short_url
+            response_data['url'] = SITE_URL + short_url
             return HttpResponse(json.dumps(response_data),
                                 content_type="application/json")
         return HttpResponse(json.dumps({"error": "error occurs"}),
