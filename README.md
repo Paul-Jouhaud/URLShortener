@@ -9,8 +9,8 @@ An iOS App (built in Swift) is currently in development. It currently allows the
 
 ## Django Server
 Currently the Django Server works with 2 URLs:
-- <domain_name>/api/ + json{real_url: <the url of the website>, username: <optional username>}: this post method generates a new short code.
-- <domain_name>/<short_code> === <short_url>: redirect the user to the URL linked with the matched short_code
+- < domain_name >/api/ + json{real_url: < the url of the website >, username: < optional username >}: this post method generates a new short code.
+- < domain_name >/< short_code > === < short_url >: redirect the user to the URL linked with the matched short_code
 
 We generate short code by randomizing 6 numbers in base 62 (ascii letters in lowercase + uppercase + numbers). Once a short code is generated, we test if this short code is already in the database. If so, then we generate another short code, if not, then we return that short code and build the association in the database between the short code and the real URL.
 
