@@ -3,11 +3,12 @@ from django.shortcuts import redirect, get_object_or_404, render_to_response
 from django.template.context_processors import csrf
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
 from shortener.serializers import UrlSerializer
 from shortener.models import Urls
 from shortener.forms import URLShortenerForm
 from urlShortenerServer.settings import SITE_URL
+from django.contrib.auth.forms import UserCreationForm 
 import string
 import random
 import json
@@ -18,9 +19,22 @@ def index(request):
     c.update(csrf(request))
     return render_to_response('index.html', c)
 
+def register(request):
+     if request.method == 'POST':
+         form = UserCreationForm(request.POST)
+         if form.is_valid():
+             form.save()
+             return render_to_response('index.html')
+     else:
+         form = UserCreationForm()
+     token = {}
+     token.update(csrf(request))
+     token['form'] = form
+     return render_to_response('register.html', token)
+
+
 # Create your views here.
 class UrlShortener(APIView):
-
     def generate(nb_char):
         char = string.ascii_uppercase + string.digits + string.ascii_lowercase
         randomized = [random.choice(char) for _ in range(nb_char)]
@@ -38,6 +52,7 @@ class UrlShortener(APIView):
             new_url.short_url = short_url
             new_url.real_url = request.data['real_url']
             # Not used right now, will be in the future
+            # If user is authenticated
             if 'username' in request.data:
                 new_url.username = request.data['username']
             new_url.save()
