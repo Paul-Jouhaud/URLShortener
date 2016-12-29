@@ -3,12 +3,13 @@ from django.shortcuts import redirect, get_object_or_404, render_to_response
 from django.template.context_processors import csrf
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status, permissions
+from rest_framework import status
 from shortener.serializers import UrlSerializer
 from shortener.models import Urls
 from shortener.forms import URLShortenerForm
 from urlShortenerServer.settings import SITE_URL
 from django.contrib.auth.forms import UserCreationForm 
+from rest_framework.permissions import IsAuthenticated, AllowAny
 import string
 import random
 import json
@@ -35,6 +36,7 @@ def register(request):
 
 # Create your views here.
 class UrlShortener(APIView):
+    permission_classes = (AllowAny,)
     def generate(nb_char):
         char = string.ascii_uppercase + string.digits + string.ascii_lowercase
         randomized = [random.choice(char) for _ in range(nb_char)]
