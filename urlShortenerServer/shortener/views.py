@@ -39,7 +39,7 @@ def login(request):
     return render_to_response('login.html', c)
 
 
-# Create your views here.
+# Generates a short code based on a real url
 class UrlShortener(APIView):
     permission_classes = (AllowAny,)
     def generate(nb_char):
@@ -73,6 +73,7 @@ class UrlShortener(APIView):
                             content_type="application/json")
 
 
+# Use the short code to redirect to the real url
 class ExistingUrl(APIView):
     permission_classes = (AllowAny,)
     def get_object(self, pk):
@@ -88,6 +89,7 @@ class ExistingUrl(APIView):
         print(url.real_url)
         return redirect("http://"+url.real_url, permanent=True)
 
+# To get urls from a specific user
 class UrlFromUser(APIView):
     permission_classes = (IsAuthenticated,)
     def post(self, request, format=None):

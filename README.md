@@ -8,12 +8,17 @@ A web interface was recently  added to interact with the REST API, and generate 
 An iOS App (built with Swift) allows the user to generate a short URL, stores a list of the previously generated short URLs.
 
 ## Django Server
-Currently the Django Server works with 2 URLs:
+Currently the Django Server works with these URLs:
 - < domain_name >/api/ + json{real_url: < the url of the website >, username: < optional username >}: this post method generates a new short code.
 - < domain_name >/< short_code > === < short_url >: redirect the user to the URL linked with the matched short_code
+- < domain_name >/api/urls/ + json{username: < username >} : gets all urls linked to this user
+- < domain_name >/register : to register a new user
+- < domain_name >/login : to login and then use functionalities made for registered user
 
-We generate short code by randomizing 6 numbers in base 62 (ascii letters in lowercase + uppercase + numbers). Once a short code is generated, we test if this short code is already in the database. If so, then we generate another short code, if not, then we return that short code and build the association in the database between the short code and the real URL.
+We generate a short code by randomizing 6 numbers in base 62 (ascii letters in lowercase + uppercase + numbers). Once a short code is generated, we test if this short code is already in the database. If so, then we generate another short code, if not, then we return that short code and build the association in the database between the short code and the real URL.
 
+When a user logs in, a Javascript Web Token is generated and is used to authenticate the user, by example to request previously generated urls.
+We use Django Rest Framework JWT to use JWT.
 ## iOS App
 This iOS app is built in Swift 3 for iOS 10. 
 It is using a tab-based template:
