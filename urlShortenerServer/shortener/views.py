@@ -33,6 +33,11 @@ def register(request):
      token['form'] = form
      return render_to_response('register.html', token)
 
+def login(request):
+    c = {}
+    c.update(csrf(request))
+    return render_to_response('login.html', c)
+
 
 # Create your views here.
 class UrlShortener(APIView):

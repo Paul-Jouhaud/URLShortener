@@ -24,7 +24,6 @@ urlpatterns = [
     url(r'^(\w{6})/$', views.ExistingUrl.as_view()),
     url(r'^login-jwt/', obtain_jwt_token),
     url(r'^register/', views.register, name='register'),
-    url(r'^login/$', login, name='login'),
-    url(r'^logout/$', logout, name='logout'),
+    url(r'^login/$', views.login, name='login'),
     url(r'^$', views.index, name='home'),
 ]

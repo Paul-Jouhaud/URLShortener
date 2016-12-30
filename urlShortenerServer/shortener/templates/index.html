@@ -3,7 +3,32 @@
 {% block title %}URL Shortener{% endblock %}
   
 {% block content %}
-  
+<script type="text/javascript">
+    $(function() {
+        $('#submitButton').click(function() {
+        $.ajax({
+            type: "POST",
+            url: "/api/",
+            data: {
+                'real_url' : $('#url').val(),
+                'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+                },
+                success: returnSuccess,
+                dataType: 'json'
+            });
+        });
+    });
+    
+    function returnSuccess(data, textStatus, jqXHR) {
+        console.log(data);
+        if(data.url) {
+            $('#url-result').text(data.url);
+            $('#url').val("");
+        } else {
+            $('#url-result').text("Do not submit blank."); 
+        }
+    }
+</script>
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="col-sm-9">

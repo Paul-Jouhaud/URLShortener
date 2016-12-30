@@ -1,0 +1,103 @@
+{% extends "template.html" %}
+  
+{% block title %}URL Shortener{% endblock %}
+  
+{% block content %}
+<script type="text/javascript">
+    $(function() {
+        $('#loginButton').click(function() {
+        $.ajax({
+            type: "POST",
+            url: "/login-jwt/",
+            data: {
+                'username' : $('#username').val(),
+                'password' : $('#password').val(),
+                },
+                success: returnTokenSuccess,
+                error: returnTokenFailed,
+                dataType: 'json'
+            });
+        });
+        $('#logoutButton').click(function() {
+          window.location.replace("http://localhost:8000");
+        });
+        $('#submitButton').click(function() {
+          $.ajax({
+              type: "POST",
+              url: "/api/",
+              data: {
+                  'real_url' : $('#url').val(),
+                  'username' : $('#username').val(),
+                  'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+                  },
+                  success: returnSuccess,
+                  dataType: 'json'
+              });
+          });
+    });
+    
+    function returnTokenSuccess(data, textStatus, jqXHR) {
+        console.log(data);
+        if (data.token) {
+          $("#logout-panel").toggleClass('hidden');
+          $("#login-panel").toggleClass('hidden');
+          $("#urlshortener-panel").toggleClass('hidden');
+          $("#urls-panel").toggleClass('hidden');
+        }
+    }
+    function returnTokenFailed (data, textStatus, jqXHR) {
+        console.log(data);
+        $("#login-result").toggleClass('hidden');
+    }
+        
+    
+    function returnSuccess(data, textStatus, jqXHR) {
+        console.log(data);
+        if(data.url) {
+            $('#url-result').text(data.url);
+            $('#url').val("");
+        } else {
+            $('#url-result').text("Do not submit blank."); 
+        }
+    }
+</script>
+<div class="panel panel-default">
+
+    <div id="logout-panel"  class="panel-body hidden">
+        <div class="col-sm-12">
+          <button id="logoutButton" type="button" class="btn btn-danger btn-block">Logout</button>
+        </div>
+    </div>
+    
+    <div id="login-panel" class="panel-body">
+        <div class="col-sm-9">
+            <input type="text" name="username" id="username" class="form-control input-sm" placeholder="Username" />
+            <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password" />
+        </div>
+        <div class="col-sm-3">
+            {% csrf_token %}
+            <button id="loginButton" class="btn btn-primary">Login</button></p> 
+        </div>
+        <div class="col-sm-12 hidden" id="login-result"><span>Wrong username or password</span></div>
+    </div>
+
+    <div id="urlshortener-panel"  class="panel-body hidden">
+        <div class="col-sm-9">
+            <input type="text" name="url" id="url" class="form-control input-sm" placeholder="http://www.google.com" />
+        </div>
+        <div class="col-sm-3">
+            {% csrf_token %}
+            <button id="submitButton" class="btn btn-primary">Shorten</button></p> 
+        </div>
+        <div class="col-sm-12">
+          <span id="url-result">Submit an URL to shorten</span>
+        </div>
+    </div>
+
+    <div id="urls-panel"  class="panel-body hidden">
+        <div class="col-sm-12">
+          <span>Your Urls</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
