@@ -28,7 +28,7 @@
               data: {
                   'real_url' : $('#url').val(),
                   'username' : $('#username').val(),
-                  'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+                  'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val(),
                   },
                   success: returnSuccess,
                   dataType: 'json'
@@ -39,10 +39,24 @@
     function returnTokenSuccess(data, textStatus, jqXHR) {
         console.log(data);
         if (data.token) {
+          var token = data.token;
           $("#logout-panel").toggleClass('hidden');
           $("#login-panel").toggleClass('hidden');
           $("#urlshortener-panel").toggleClass('hidden');
           $("#urls-panel").toggleClass('hidden');
+          $.ajax({
+              type: "POST",
+              url: "/api/urls/",
+              headers: {
+                'Authorization': 'Bearer '+ token,
+              },
+              data: {
+                  'username' : $('#username').val(),
+                  'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val(),
+              },
+              success: returnUrlsSuccess,
+              dataType: 'json',
+            });
         }
     }
     function returnTokenFailed (data, textStatus, jqXHR) {
@@ -59,6 +73,19 @@
         } else {
             $('#url-result').text("Do not submit blank."); 
         }
+    }
+
+    function returnUrlsSuccess(data, textStatus, jqXHR) {
+        console.log(data);
+        var urls_list=[{
+          short_url: "dfqfqdsq",
+          real_url: "facebook.com",
+          username: "Paul",
+          count: 100,
+        },];
+        urls_list.forEach(url => {
+          $('#urls_table tr:last').after('<tr><td>{{ url.real_url }}</td><td>{{ url.short_url }}</td><td>{{ url.count }}</td></tr>');
+        })
     }
 </script>
 <div class="panel panel-default">
@@ -96,7 +123,18 @@
 
     <div id="urls-panel"  class="panel-body hidden">
         <div class="col-sm-12">
-          <span>Your Urls</span>
+          <table class="table table-hover" id="urls_table">
+            <thead>
+              <tr>
+                <th>Real Url</th>
+                <th>Short Url</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+          </table>
         </div>
     </div>
 </div>

@@ -20,6 +20,7 @@ from rest_framework_jwt.views import obtain_jwt_token
 from django.contrib.auth.views import login, logout
 
 urlpatterns = [
+    url(r'api/urls/', views.UrlFromUser.as_view()),
     url(r'api/', views.UrlShortener.as_view()),
     url(r'^(\w{6})/$', views.ExistingUrl.as_view()),
     url(r'^login-jwt/', obtain_jwt_token),

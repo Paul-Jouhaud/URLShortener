@@ -11,4 +11,4 @@ class Urls(models.Model):
     username = models.CharField(max_length=255, default="")
 
     def __str__(self):
-        return self.short_url + " " + self.real_url + " " + self.username
+        return self.short_url + " " + self.real_url + " " + self.username + " " + str(self.count)

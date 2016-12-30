@@ -83,3 +83,17 @@ class ExistingUrl(APIView):
         url.count += 1
         url.save()
         return redirect(url.real_url, permanent=True)
+
+class UrlFromUser(APIView):
+    permission_classes = (AllowAny,)
+    def post(self, request, format=None):
+        print(request.data)
+        if 'username' in request.data:
+            urls = Urls.objects.filter(username=request.data['username'])
+            print(urls)
+            response_data = {}
+            response_data['urls'] = urls
+            return HttpResponse(json.dumps(response_data),
+                                content_type="application/json")
+        return HttpResponse(json.dumps({"error": "error occurs"}),
+                            content_type="application/json")
