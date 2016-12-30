@@ -21,8 +21,8 @@
     
     function returnSuccess(data, textStatus, jqXHR) {
         console.log(data);
-        if(data.url) {
-            $('#url-result').text(data.url);
+        if(data.short_url) {
+            $('#url-result').text(data.short_url);
             $('#url').val("");
         } else {
             $('#url-result').text("Do not submit blank."); 

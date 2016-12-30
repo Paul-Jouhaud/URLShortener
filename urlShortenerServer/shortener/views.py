@@ -64,7 +64,9 @@ class UrlShortener(APIView):
                 new_url.username = request.data['username']
             new_url.save()
             response_data = {}
-            response_data['url'] = SITE_URL + short_url
+            response_data['real_url'] = new_url.real_url
+            response_data['count'] = new_url.count
+            response_data['short_url'] = SITE_URL + new_url.short_url
             return HttpResponse(json.dumps(response_data),
                                 content_type="application/json")
         return HttpResponse(json.dumps({"error": "error occurs"}),
@@ -97,12 +99,12 @@ class UrlFromUser(APIView):
             response_data['urls'] = []
             for url in urls:
                 urlJson = {
-                    'short_url': url.short_url,
+                    'short_url': SITE_URL + url.short_url,
                     'real_url': url.real_url,
                     'count': url.count,
                 }
                 response_data['urls'].append(json.dumps(urlJson))
             return HttpResponse(json.dumps(response_data),
                                 content_type="application/json")
-        return HttpResponse(json.dumps({"error": "error occurs"}),
+        return HttpResponse(json.dumps({"error": "No username"}),
                             content_type="application/json")
