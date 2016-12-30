@@ -77,15 +77,13 @@
 
     function returnUrlsSuccess(data, textStatus, jqXHR) {
         console.log(data);
-        var urls_list=[{
-          short_url: "dfqfqdsq",
-          real_url: "facebook.com",
-          username: "Paul",
-          count: 100,
-        },];
-        urls_list.forEach(url => {
-          $('#urls_table tr:last').after('<tr><td>{{ url.real_url }}</td><td>{{ url.short_url }}</td><td>{{ url.count }}</td></tr>');
-        })
+        if (data.urls) {
+          data.urls.forEach(url => {
+            url = JSON.parse(url);
+            console.log(url.real_url);
+            $('#urls_table tr:last').after('<tr><td> '+ url.real_url  + ' </td><td> ' + url.short_url  + ' </td><td> ' + url.count  + ' </td></tr>');
+          });
+        }
     }
 </script>
 <div class="panel panel-default">

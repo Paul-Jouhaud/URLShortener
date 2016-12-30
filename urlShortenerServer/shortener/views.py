@@ -72,6 +72,7 @@ class UrlShortener(APIView):
 
 
 class ExistingUrl(APIView):
+    permission_classes = (AllowAny,)
     def get_object(self, pk):
         try:
             return Urls.objects.get(pk=pk)
@@ -82,7 +83,8 @@ class ExistingUrl(APIView):
         url = get_object_or_404(Urls, pk=pk)
         url.count += 1
         url.save()
-        return redirect(url.real_url, permanent=True)
+        print(url.real_url)
+        return redirect("http://"+url.real_url, permanent=True)
 
 class UrlFromUser(APIView):
     permission_classes = (AllowAny,)
@@ -92,7 +94,14 @@ class UrlFromUser(APIView):
             urls = Urls.objects.filter(username=request.data['username'])
             print(urls)
             response_data = {}
-            response_data['urls'] = urls
+            response_data['urls'] = []
+            for url in urls:
+                urlJson = {
+                    'short_url': url.short_url,
+                    'real_url': url.real_url,
+                    'count': url.count,
+                }
+                response_data['urls'].append(json.dumps(urlJson))
             return HttpResponse(json.dumps(response_data),
                                 content_type="application/json")
         return HttpResponse(json.dumps({"error": "error occurs"}),
