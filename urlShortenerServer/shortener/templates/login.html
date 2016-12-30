@@ -39,6 +39,7 @@
     function returnTokenSuccess(data, textStatus, jqXHR) {
         console.log(data);
         if (data.token) {
+          window.localStorage.setItem('urlShortenerToken', data.token);
           var token = data.token;
           $("#logout-panel").toggleClass('hidden');
           $("#login-panel").toggleClass('hidden');
@@ -48,7 +49,7 @@
               type: "POST",
               url: "/api/urls/",
               headers: {
-                'Authorization': 'Bearer '+ token,
+                'Authorization': "JWT " +  token,
               },
               data: {
                   'username' : $('#username').val(),

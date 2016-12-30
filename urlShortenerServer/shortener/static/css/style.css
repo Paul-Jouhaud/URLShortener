@@ -24,3 +24,6 @@ header {
     color: dimgray;
     display: hidden;
 }
+.navbar {
+    border-radius: 0px;
+}

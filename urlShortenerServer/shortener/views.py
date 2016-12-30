@@ -87,7 +87,7 @@ class ExistingUrl(APIView):
         return redirect("http://"+url.real_url, permanent=True)
 
 class UrlFromUser(APIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     def post(self, request, format=None):
         print(request.data)
         if 'username' in request.data:
