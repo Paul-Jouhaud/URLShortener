@@ -63,6 +63,7 @@
 
     function loadToken(token) {
         window.localStorage.setItem('urlShortenerToken', token);
+        $('#login-button').text(window.localStorage.getItem('urlShortenerUsername'));
         $("#hello-panel").toggleClass('hidden');
         $("#username-hello").text('Hello, ' + window.localStorage.getItem('urlShortenerUsername') );
         $("#logout-panel").toggleClass('hidden');
