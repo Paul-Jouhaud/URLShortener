@@ -11,7 +11,30 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
+   <script type="text/javascript">
+   $(function() {
+        $( document ).ready(function() {
+            if(window.localStorage.getItem('urlShortenerToken')) {
+                $.ajax({
+                type: "POST",
+                url: "/api-token-verify/",
+                data: {
+                    'token' : window.localStorage.getItem('urlShortenerToken'),
+                    },
+                    success: returnTokenSuccess,
+                    dataType: 'json'
+                });
+            };
+        });
+        function returnTokenSuccess(data, textStatus, jqXHR) {
+            console.log(data);
+            if (data.token && window.localStorage.getItem('urlShortenerUsername')) {
+                $('#login-button').text(window.localStorage.getItem('urlShortenerUsername'));
+            }
+        }
+   });
    
+   </script>
     <body>
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
@@ -25,7 +48,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li><a href="/login">Login</a></li>
+                        <li><a id="login-button" href="/login">Login</a></li>
                         <li><a href="/register">Register</a></li>
                     </ul>
                 </div>

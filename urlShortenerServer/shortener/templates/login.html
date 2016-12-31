@@ -6,59 +6,82 @@
 <script type="text/javascript">
     $(function() {
         $('#loginButton').click(function() {
-        $.ajax({
-            type: "POST",
-            url: "/login-jwt/",
-            data: {
-                'username' : $('#username').val(),
-                'password' : $('#password').val(),
-                },
-                success: returnTokenSuccess,
-                error: returnTokenFailed,
-                dataType: 'json'
-            });
+            window.localStorage.setItem('urlShortenerUsername', $('#username').val());
+            $.ajax({
+                type: "POST",
+                url: "/login-jwt/",
+                data: {
+                    'username' : $('#username').val(),
+                    'password' : $('#password').val(),
+                    },
+                    success: returnTokenSuccess,
+                    error: returnTokenFailed,
+                    dataType: 'json'
+                });
         });
         $('#logoutButton').click(function() {
-          window.location.replace("http://localhost:8000");
+            window.location.replace("http://localhost:8000");
+            window.localStorage.removeItem('urlShortenerToken');
+            window.localStorage.removeItem('urlShortenerUsername');
+            $('#login-button').text('Login');
         });
         $('#submitButton').click(function() {
-          $.ajax({
-              type: "POST",
-              url: "/api/",
-              data: {
-                  'real_url' : $('#url').val(),
-                  'username' : $('#username').val(),
-                  'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val(),
-                  },
-                  success: returnSuccess,
-                  dataType: 'json'
-              });
+            $.ajax({
+                type: "POST",
+                url: "/api/",
+                data: {
+                    'real_url' : $('#url').val(),
+                    'username' : window.localStorage.getItem('urlShortenerUsername'),
+                    'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val(),
+                    },
+                    success: returnSuccess,
+                    dataType: 'json'
+                });
           });
+          $( document ).ready(function() {
+            if(window.localStorage.getItem('urlShortenerToken')) {
+                $.ajax({
+                type: "POST",
+                url: "/api-token-verify/",
+                data: {
+                    'token' : window.localStorage.getItem('urlShortenerToken'),
+                    },
+                    success: returnTokenSuccess,
+                    dataType: 'json'
+                });
+            };
+        });
     });
     
     function returnTokenSuccess(data, textStatus, jqXHR) {
         console.log(data);
         if (data.token) {
-          window.localStorage.setItem('urlShortenerToken', data.token);
           var token = data.token;
-          $("#logout-panel").toggleClass('hidden');
-          $("#login-panel").toggleClass('hidden');
-          $("#urlshortener-panel").toggleClass('hidden');
-          $("#urls-panel").toggleClass('hidden');
-          $.ajax({
-              type: "POST",
-              url: "/api/urls/",
-              headers: {
-                'Authorization': "JWT " +  token,
-              },
-              data: {
-                  'username' : $('#username').val(),
-                  'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val(),
-              },
-              success: returnUrlsSuccess,
-              dataType: 'json',
-            });
+          loadToken(token);
         }
+    }
+
+    function loadToken(token) {
+        window.localStorage.setItem('urlShortenerToken', token);
+        $("#hello-panel").toggleClass('hidden');
+        $("#username-hello").text('Hello, ' + window.localStorage.getItem('urlShortenerUsername') );
+        $("#logout-panel").toggleClass('hidden');
+        $("#login-panel").toggleClass('hidden');
+        $("#urlshortener-panel").toggleClass('hidden');
+        $("#urls-panel").toggleClass('hidden');
+        $.ajax({
+            type: "POST",
+            url: "/api/urls/",
+            headers: {
+            'Authorization': "JWT " +  token,
+            },
+            data: {
+                'username' : $('#username').val(),
+                'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val(),
+            },
+            success: returnUrlsSuccess,
+            dataType: 'json',
+        });
     }
     function returnTokenFailed (data, textStatus, jqXHR) {
         console.log(data);
@@ -89,6 +112,11 @@
     }
 </script>
 <div class="panel panel-default">
+    <div id="hello-panel"  class="panel-body hidden">
+        <div class="col-sm-12">
+          <header><h1 id="username-hello"></h1></header>
+        </div>
+    </div>
     <div id="logout-panel"  class="panel-body hidden">
         <div class="col-sm-12">
           <button id="logoutButton" type="button" class="btn btn-danger btn-block">Logout</button>

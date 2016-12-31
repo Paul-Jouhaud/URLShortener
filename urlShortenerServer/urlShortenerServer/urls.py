@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from shortener import views
 from django.contrib import admin
-from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token
 from django.contrib.auth.views import login, logout
 
 urlpatterns = [
@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'api/', views.UrlShortener.as_view()),
     url(r'^(\w{6})/$', views.ExistingUrl.as_view()),
     url(r'^login-jwt/', obtain_jwt_token),
+    url(r'^api-token-verify/', verify_jwt_token),
     url(r'^register/', views.register, name='register'),
     url(r'^login/$', views.login, name='login'),
     url(r'^$', views.index, name='home'),
