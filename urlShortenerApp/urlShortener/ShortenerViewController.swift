@@ -47,7 +47,7 @@ class ShortenerViewController: UIViewController {
             do {
                 guard let data = data else { return }
                 guard let response = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] else { return }
-                let shortUrlText = response["url"]! as! String
+                let shortUrlText = response["short_url"]! as! String
                 self.shortURL.text = shortUrlText
                 let newShortUrl = UrlItem()
                 newShortUrl.real_url = realUrlText
